@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HİLAL ❤️</title>
+
+<style>
+:root{
+    --pink:#ff2b6a;
+}
+
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    min-height:100svh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:radial-gradient(circle at top,#120015,#050505 60%);
+    overflow:hidden;
+    font-family:"Segoe UI",Arial,sans-serif;
+}
+
+/* Hareketli arka plan */
+body::before{
+    content:"";
+    position:absolute;
+    inset:-50%;
+    background:
+      radial-gradient(circle,var(--pink) 1px,transparent 2px);
+    background-size:60px 60px;
+    opacity:.04;
+    animation:bgMove 40s linear infinite;
+}
+@keyframes bgMove{
+    to{transform:translate(120px,120px)}
+}
+
+/* ANA ALAN */
+.container{
+    position:relative;
+    width:min(92vw,900px);
+    aspect-ratio: 650 / 250; /* SVG oranı */
+}
+
+/* SVG */
+svg{
+    width:100%;
+    height:100%;
+}
+
+/* Yazı */
+#writ­ing-path{
+    fill:none;
+    stroke:var(--pink);
+    stroke-width:clamp(3px,0.7vw,6px);
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    stroke-dasharray:2400;
+    stroke-dashoffset:2400;
+    animation:draw 7s cubic-bezier(.65,0,.35,1) forwards;
+    filter:
+      drop-shadow(0 0 6px var(--pink))
+      drop-shadow(0 0 16px rgba(255,43,106,.8));
+}
+
+@keyframes draw{
+    to{stroke-dashoffset:0}
+}
+
+/* Kalem */
+#pencil{
+    position:absolute;
+    font-size:clamp(26px,4vw,42px);
+    offset-path:path("M50,150 L50,50 M50,100 L110,100 M110,150 L110,50 M150,50 L150,150 M190,50 L190,130 Q190,150 210,150 L240,150 M280,150 L310,50 L340,150 M295,110 L325,110 M380,50 L380,150 L440,150 M480,100 C480,70 520,70 520,100 C520,70 560,70 560,100 C560,150 520,180 520,180 C520,180 480,150 480,100");
+    animation:move 7s cubic-bezier(.65,0,.35,1) forwards;
+    transform:translate(-0.4em,-1.1em) rotate(10deg);
+    filter:drop-shadow(0 0 6px var(--pink));
+}
+
+@keyframes move{
+    from{offset-distance:0%}
+    to{offset-distance:100%}
+}
+
+/* Kalp */
+.heart{
+    position:absolute;
+    right:clamp(8px,4vw,30px);
+    top:50%;
+    transform:translateY(-50%) scale(0);
+    font-size:clamp(36px,8vw,68px);
+    color:var(--pink);
+    filter:
+      drop-shadow(0 0 12px var(--pink))
+      drop-shadow(0 0 28px rgba(255,43,106,.9));
+    animation:
+      heartIn .9s cubic-bezier(.2,1.4,.4,1) forwards,
+      heartBeat 1.6s ease-in-out infinite;
+    animation-delay:7s,7.9s;
+}
+
+@keyframes heartIn{
+    to{transform:translateY(-50%) scale(1)}
+}
+
+@keyframes heartBeat{
+    0%{transform:translateY(-50%) scale(1)}
+    50%{transform:translateY(-50%) scale(1.25)}
+    100%{transform:translateY(-50%) scale(1)}
+}
+
+/* Yıldızlar */
+.spark{
+    position:absolute;
+    width:clamp(4px,0.8vw,6px);
+    height:clamp(4px,0.8vw,6px);
+    background:var(--pink);
+    border-radius:50%;
+    pointer-events:none;
+    animation:spark 1.2s ease-out forwards;
+}
+
+@keyframes spark{
+    from{opacity:1;transform:translate(0,0) scale(1)}
+    to{
+        opacity:0;
+        transform:translate(var(--x),var(--y)) scale(0)
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <svg viewBox="0 0 650 250" preserveAspectRatio="xMidYMid meet">
+        <path id="writ­ing-path" d="
+        M50,150 L50,50 
+        M50,100 L110,100 
+        M110,150 L110,50 
+        M150,50 L150,150 
+        M190,50 L190,130 Q190,150 210,150 L240,150 
+        M280,150 L310,50 L340,150 
+        M295,110 L325,110 
+        M380,50 L380,150 L440,150 
+        M480,100 
+        C480,70 520,70 520,100 
+        C480,70 560,70 560,100 
+        C560,150 520,180 520,180 
+        C520,180 480,150 480,100"/>
+    </svg>
+
+   
+    <div class="heart">❤️</div>
+</div>
+
+<script>
+/* Kalp çıkınca responsive yıldız patlaması */
+setTimeout(()=>{
+    const container=document.querySelector(".container");
+    const rect=container.getBoundingClientRect();
+    for(let i=0;i<14;i++){
+        const s=document.createElement("div");
+        s.className="spark";
+        s.style.left=(rect.width*0.92)+"px";
+        s.style.top=(rect.height*0.5)+"px";
+        s.style.setProperty("--x",(Math.random()*160-80)+"px");
+        s.style.setProperty("--y",(Math.random()*160-80)+"px");
+        container.appendChild(s);
+        setTimeout(()=>s.remove(),1200);
+    }
+},7500);
+</script>
+
+</body>
+</html>
